@@ -15,7 +15,7 @@ function NewNote(): ReactElement {
       </p>
       <p>
         <label htmlFor="content">Content</label>
-        <input type="text" id="content" name="content" required />
+        <textarea rows={5} id="content" name="content" required />
       </p>
       <div className="form-actions">
         <button>Add Note</button>

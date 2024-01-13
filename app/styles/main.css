@@ -39,6 +39,15 @@ body {
   padding: 0 2rem;
 }
 
-#main-navigation a {
-  color: aliceblue;
+/* text decoration none to get rid of underline */
+.nav-item a {
+  text-decoration: none;
+  color: var(--beige);
+}
+
+/* styling the hover and active page through the NavLink tag provided by remix */
+/* note that it is .active and not :active! */
+.nav-item a:hover,
+.nav-item a.active {
+  color: yellowgreen;
 }
