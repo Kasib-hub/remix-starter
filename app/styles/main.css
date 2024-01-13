@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Arvo&family=Inter&family=Roboto+Slab&display=swap");
+
+:root {
+  --gray-green: #607274;
+  --beige: #faeed1;
+  --drk-beige: #ded0b6;
+  --brown: #b2a59b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--gray-green);
+  color: var(--beige);
+  font-family: "Arvo", serif;
+  font-family: "Inter", sans-serif;
+  font-family: "Roboto Slab", serif;
+}
+
+#main-navigation {
+  margin: 0 auto;
+}
+
+#main-navigation ul {
+  justify-content: center;
+  list-style: none;
+  display: flex;
+  text-align: center;
+}
+
+#main-navigation li {
+  padding: 0 2rem;
+}
+
+#main-navigation a {
+  color: aliceblue;
+}

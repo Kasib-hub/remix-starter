@@ -1,0 +1,26 @@
+body {
+  text-align: center;
+}
+
+#cta {
+  color: var(--gray-green);
+}
+
+/* inline elements do not cooperate with margin top and bottom well */
+/* Here I styled a Link tag which is really an anchor to look like a button */
+#cta a {
+  display: block;
+  color: inherit;
+  background-color: var(--beige);
+  text-decoration: none;
+  margin: 1.5rem auto;
+  transition: 0.2s all;
+  padding: 0.5rem 2.5rem;
+  width: fit-content;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+}
+
+#cta a:hover {
+  background-color: #999281;
+}
