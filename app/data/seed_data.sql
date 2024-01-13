@@ -1,0 +1,1 @@
+INSERT INTO notes (title, content) VALUES ('Greetings', 'I come to you from a sql script!');

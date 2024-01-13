@@ -11,6 +11,9 @@ function NotesPage() {
 
 export default NotesPage;
 
+// only takes non GET requets and doesn't render or execute on the client
+export function action() {}
+
 // I suppose if I had mutiple things to import this would work?
 export function links() {
   return [...newNoteLinks()];
