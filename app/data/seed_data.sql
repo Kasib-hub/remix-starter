@@ -1,1 +1,1 @@
-INSERT INTO notes (title, content) VALUES ('Greetings', 'I come to you from a sql script!');
+INSERT INTO notes (title, content) VALUES ('Greetings 2', 'I 2 to you from a sql script!');

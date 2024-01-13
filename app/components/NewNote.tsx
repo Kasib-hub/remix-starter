@@ -1,12 +1,18 @@
-import { ReactElement } from "react";
+import { ReactElement} from "react";
 import newNoteStyles from "./NewNote.css";
+import { NoteType } from "~/routes/notes";
 
 interface LinkProps {
   rel: string;
   href: string;
 }
 
-function NewNote(): ReactElement {
+// so to use props you make an interface for the incoming data
+interface NewNoteProps {
+  notes: NoteType[]
+}
+
+function NewNote({notes}: NewNoteProps): ReactElement {
   return (
     <form id="note-form" method="post">
       <p>
@@ -20,6 +26,13 @@ function NewNote(): ReactElement {
       <div className="form-actions">
         <button>Add Note</button>
       </div>
+      {
+        notes.map((note) => {
+          return (
+            <p key={note.id}>{note.title}</p>
+          )
+        })
+      }
     </form>
   );
 }
