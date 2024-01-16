@@ -1,5 +1,6 @@
 import { ReactElement} from "react";
 import newNoteStyles from "./NewNote.css";
+// import the type created to safely move the data
 import { NoteType } from "~/routes/notes";
 
 interface LinkProps {
@@ -27,9 +28,9 @@ function NewNote({notes}: NewNoteProps): ReactElement {
         <button>Add Note</button>
       </div>
       {
-        notes.map((note) => {
+        notes.map((note: NoteType) => {
           return (
-            <p key={note.id}>{note.title}</p>
+            <p key={note.id}>{note.title} - {note.content} written at {note.date}</p>
           )
         })
       }

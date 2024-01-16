@@ -3,39 +3,30 @@ import { useLoaderData } from "@remix-run/react";
 import NewNote, { links as newNoteLinks } from "../components/NewNote";
 import { PrismaClient } from "@prisma/client";
 
-
-interface ActionParams {
-  request: Request;
-}
-
-// only takes non GET requets and doesn't render or execute on the client
-// data also won't get downloaded to the client
+// data also won't get downloaded to the client - thats why it doesn't show in browser console.log
 // remix will provide the data - console log shows in the terminal
 export async function loader() {
   const prisma = new PrismaClient();
-  const allNotes = await prisma.notes.findMany();
-  console.log("your notes", allNotes);
+  const allNotes = await prisma.notes.findMany(); // prisma is getting 'notes' from the model in schema file
+  console.log(allNotes);
   await prisma.$disconnect
   return allNotes;
 }
 
+// use a type to pass this definition. Interfaces are compiled at build time and won't work
 export type NoteType = {
   id: number,
   title: string,
-  content: string
+  content: string,
+  date: string
 }
 
-// once you finish the request useLoaderData grabs the data
 function NotesPage() {
-  // if you return a component on a separate it will force it to render client side
+
+  const notes : NoteType[] = useLoaderData(); // useLoaderData grabs the data from request
+
+  // if you return a component on a separate line it will force the render client side
   // many errors in console as a result.
-
-
-
-  const notes : NoteType[] = useLoaderData();
-
-
-
   return (
     <main><NewNote notes={notes} /></main>
   );
