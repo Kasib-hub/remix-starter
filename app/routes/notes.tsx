@@ -1,5 +1,5 @@
 // taking in the links exported form a component to use the css?
-import { useLoaderData } from "@remix-run/react";
+import { json, useLoaderData } from "@remix-run/react";
 import NewNote, { links as newNoteLinks } from "../components/NewNote";
 import { PrismaClient } from "@prisma/client";
 import NoteList, { links as existingNoteLinks } from "~/components/NoteList";
@@ -9,7 +9,13 @@ import NoteList, { links as existingNoteLinks } from "~/components/NoteList";
 export async function loader() {
   const prisma = new PrismaClient();
   const allNotes = await prisma.notes.findMany(); // prisma is getting 'notes' from the model in schema file
-  console.log(allNotes);
+  if (!allNotes || allNotes.length === 0) {
+    throw json(
+      { message: "Could not find any notes" },
+      { status: 404, statusText: "Not Found" }
+    );
+  }
+
   await prisma.$disconnect;
   return allNotes;
 }
@@ -25,6 +31,8 @@ interface NoteFormData {
 
 export async function action({ request }: ActionParams) {
   const formData = await request.formData();
+
+  // FormData returns a type that doesn't align so I can't type it. Still works fine
   const noteData: NoteFormData = Object.fromEntries(formData);
 
   const title: string | null = noteData.title;
