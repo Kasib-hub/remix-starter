@@ -18,14 +18,25 @@ interface ActionParams {
   request: Request;
 }
 
+interface NoteFormData {
+  title: string;
+  content: string;
+}
+
 export async function action({ request }: ActionParams) {
-  const form = await request.formData();
+  const formData = await request.formData();
+  const noteData: NoteFormData = Object.fromEntries(formData);
+
+  const title: string | null = noteData.title;
+  if (title.trim().length < 5) {
+    return {
+      message: "Invalid title - must be at least 5 characters long.",
+    };
+  }
   const prisma = new PrismaClient();
+
   const newNote = await prisma.notes.create({
-    data: {
-      title: form.get("title") as string,
-      content: form.get("content") as string,
-    },
+    data: noteData,
   });
   console.log(newNote);
   await prisma.$disconnect();
