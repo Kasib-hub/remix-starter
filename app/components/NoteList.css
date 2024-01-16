@@ -1,14 +1,14 @@
 #note-list {
   max-width: 30rem;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   flex-wrap: wrap;
   margin: 0 auto;
 }
 
 .note-item {
   background-color: #435052;
-  width: 13rem;
+  width: 14rem;
   border-radius: 0.5rem;
   padding: 1rem;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);

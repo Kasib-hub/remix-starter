@@ -21,7 +21,8 @@ function NoteList({ notes }: NewNoteProps): ReactElement {
           return (
             <p key={note.id} className="note-item">
               <p>Note #{note.id}</p>
-              {note.title} - {note.content} written at {note.date}
+              {note.title} - {note.content} written at{" "}
+              {new Date(note.date).toLocaleDateString("en-US")}
             </p>
           );
         })}
