@@ -1,7 +1,5 @@
 import { ReactElement } from "react";
 import newNoteStyles from "./NewNote.css";
-// import the type created to safely move the data
-import { NoteType } from "~/routes/notes";
 
 interface LinkProps {
   rel: string;

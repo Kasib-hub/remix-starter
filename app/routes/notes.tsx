@@ -2,7 +2,7 @@
 import { useLoaderData } from "@remix-run/react";
 import NewNote, { links as newNoteLinks } from "../components/NewNote";
 import { PrismaClient } from "@prisma/client";
-import NoteList from "~/components/NoteList";
+import NoteList, { links as existingNoteLinks } from "~/components/NoteList";
 
 // data also won't get downloaded to the client - thats why it doesn't show in browser console.log
 // remix will provide the data - console log shows in the terminal
@@ -12,6 +12,24 @@ export async function loader() {
   console.log(allNotes);
   await prisma.$disconnect;
   return allNotes;
+}
+
+interface ActionParams {
+  request: Request;
+}
+
+export async function action({ request }: ActionParams) {
+  const form = await request.formData();
+  const prisma = new PrismaClient();
+  const newNote = await prisma.notes.create({
+    data: {
+      title: form.get("title") as string,
+      content: form.get("content") as string,
+    },
+  });
+  console.log(newNote);
+  await prisma.$disconnect();
+  return true;
 }
 
 // use a type to pass this definition. Interfaces are compiled at build time and won't work
@@ -39,5 +57,5 @@ export default NotesPage;
 
 // I suppose if I had mutiple things to import this would work?
 export function links() {
-  return [...newNoteLinks()];
+  return [...newNoteLinks(), ...existingNoteLinks()];
 }
