@@ -15,13 +15,15 @@ interface NewNoteProps {
 }
 
 function NoteList({ notes }: NewNoteProps): ReactElement {
+  const num = Math.floor(Math.random() * 100);
+
   return (
     <>
       <div id="note-list">
         {notes.map((note: NoteType) => {
           return (
             <p key={note.id} className="note-item">
-              <Link to={"note-{note.id}"}>
+              <Link to={`/note/${note.id}`}>
                 <p>Note #{note.id}</p>
                 {note.title} - {note.content} written at{" "}
                 {new Date(note.date).toLocaleDateString("en-US")}

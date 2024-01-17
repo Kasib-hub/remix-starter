@@ -6,8 +6,9 @@ import NoteList, { links as existingNoteLinks } from "~/components/NoteList";
 
 // data also won't get downloaded to the client - thats why it doesn't show in browser console.log
 // remix will provide the data - console log shows in the terminal
+const prisma = new PrismaClient();
+
 export async function loader() {
-  const prisma = new PrismaClient();
   const allNotes = await prisma.notes.findMany(); // prisma is getting 'notes' from the model in schema file
   if (!allNotes || allNotes.length === 0) {
     throw json(
@@ -41,7 +42,6 @@ export async function action({ request }: ActionParams) {
       message: "Invalid title - must be at least 5 characters long.",
     };
   }
-  const prisma = new PrismaClient();
 
   const newNote = await prisma.notes.create({
     data: noteData,
