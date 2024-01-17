@@ -15,8 +15,6 @@ interface NewNoteProps {
 }
 
 function NoteList({ notes }: NewNoteProps): ReactElement {
-  const num = Math.floor(Math.random() * 100);
-
   return (
     <>
       <div id="note-list">
@@ -26,7 +24,7 @@ function NoteList({ notes }: NewNoteProps): ReactElement {
               <Link to={`/note/${note.id}`}>
                 <p>Note #{note.id}</p>
                 {note.title} - {note.content} written at{" "}
-                {new Date(note.date).toLocaleDateString("en-US")}
+                {new Date(note.date!).toLocaleDateString("en-US")}
               </Link>
             </p>
           );

@@ -1,23 +1,23 @@
 // taking in the links exported form a component to use the css?
 import { json, useLoaderData } from "@remix-run/react";
 import NewNote, { links as newNoteLinks } from "../components/NewNote";
-import { PrismaClient } from "@prisma/client";
 import NoteList, { links as existingNoteLinks } from "~/components/NoteList";
 import { ActionFunctionArgs } from "@remix-run/node";
+import { db } from "~/utils/db.server";
+import { ReactElement } from "react";
 
 // data also won't get downloaded to the client - thats why it doesn't show in browser console.log
 // remix will provide the data - console log shows in the terminal
-const prisma = new PrismaClient();
 
-export async function loader() {
-  const allNotes = await prisma.notes.findMany(); // prisma is getting 'notes' from the model in schema file
+export async function loader(): Promise<NoteType[]> {
+  const allNotes = await db.notes.findMany(); // prisma is getting 'notes' from the model in schema file
   if (!allNotes || allNotes.length === 0) {
     throw json(
       { message: "Could not find any notes" },
       { status: 404, statusText: "Not Found" }
     );
   }
-  await prisma.$disconnect;
+  await db.$disconnect;
   return allNotes;
 }
 
@@ -37,11 +37,11 @@ export async function action({ request }: ActionFunctionArgs) {
     };
   }
 
-  const newNote = await prisma.notes.create({
+  const newNote = await db.notes.create({
     data: noteData,
   });
   console.log(newNote);
-  await prisma.$disconnect();
+  // user feedback?
   return true;
 }
 
@@ -53,7 +53,7 @@ export type NoteType = {
   date: string | Date;
 };
 
-function NotesPage() {
+function NotesPage(): ReactElement {
   const notes: NoteType[] = useLoaderData(); // useLoaderData grabs the data from request
 
   // if you return a component on a separate line it will force the render client side

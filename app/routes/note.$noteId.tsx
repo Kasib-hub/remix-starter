@@ -1,7 +1,7 @@
-import { PrismaClient } from "@prisma/client";
 import { Link, useLoaderData } from "@remix-run/react";
 import { NoteType } from "./notes";
 import { LoaderFunctionArgs } from "@remix-run/node";
+import { db } from "~/utils/db.server";
 
 export default function NotesDetailsPage() {
   const note: NoteType = useLoaderData();
@@ -28,13 +28,11 @@ export default function NotesDetailsPage() {
 export async function loader({
   params,
 }: LoaderFunctionArgs): Promise<NoteType> {
-  const prisma = new PrismaClient();
   const noteId = params.noteId; // noteId refers to the name in filename
-  const note = await prisma.notes.findFirstOrThrow({
+  const note = await db.notes.findFirstOrThrow({
     where: {
       id: Number(noteId),
     },
   });
-  await prisma.$disconnect;
   return note;
 }
