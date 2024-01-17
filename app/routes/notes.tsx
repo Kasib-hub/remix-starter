@@ -50,7 +50,7 @@ export type NoteType = {
   id: number;
   title: string;
   content: string;
-  date: string;
+  date: string | Date;
 };
 
 function NotesPage() {

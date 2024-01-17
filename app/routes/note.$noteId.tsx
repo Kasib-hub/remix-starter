@@ -25,7 +25,9 @@ export default function NotesDetailsPage() {
 
 // once again use loader to get the appropriate data
 // but I can't use useParams, need to use the params provided by remix
-export async function loader({ params }: LoaderFunctionArgs) {
+export async function loader({
+  params,
+}: LoaderFunctionArgs): Promise<NoteType> {
   const prisma = new PrismaClient();
   const noteId = params.noteId; // noteId refers to the name in filename
   const note = await prisma.notes.findFirstOrThrow({
