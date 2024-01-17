@@ -3,6 +3,7 @@ import { json, useLoaderData } from "@remix-run/react";
 import NewNote, { links as newNoteLinks } from "../components/NewNote";
 import { PrismaClient } from "@prisma/client";
 import NoteList, { links as existingNoteLinks } from "~/components/NoteList";
+import { ActionFunctionArgs } from "@remix-run/node";
 
 // data also won't get downloaded to the client - thats why it doesn't show in browser console.log
 // remix will provide the data - console log shows in the terminal
@@ -16,28 +17,21 @@ export async function loader() {
       { status: 404, statusText: "Not Found" }
     );
   }
-
   await prisma.$disconnect;
   return allNotes;
 }
 
-interface ActionParams {
-  request: Request;
-}
-
-interface NoteFormData {
-  title: string;
-  content: string;
-}
-
-export async function action({ request }: ActionParams) {
+export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
 
   // FormData returns a type that doesn't align so I can't type it. Still works fine
-  const noteData: NoteFormData = Object.fromEntries(formData);
+  // going to use type assertion
+  const noteData = {
+    title: formData.get("title") as string,
+    content: formData.get("content") as string,
+  };
 
-  const title: string | null = noteData.title;
-  if (title.trim().length < 5) {
+  if (noteData.title.trim().length < 5) {
     return {
       message: "Invalid title - must be at least 5 characters long.",
     };
