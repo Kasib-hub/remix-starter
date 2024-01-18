@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 // import the type created to safely move the data
-import { NoteType } from "~/routes/notes";
+import { NoteType } from "~/routes/notes._index";
 import noteListStyles from "./NoteList.css";
 import { Link } from "@remix-run/react";
 
@@ -21,7 +21,7 @@ function NoteList({ notes }: NewNoteProps): ReactElement {
         {notes.map((note: NoteType) => {
           return (
             <p key={note.id} className="note-item">
-              <Link to={`/note/${note.id}`}>
+              <Link to={`${note.id}`}>
                 <p>Note #{note.id}</p>
                 {note.title} - {note.content} written at{" "}
                 {new Date(note.date!).toLocaleDateString("en-US")}

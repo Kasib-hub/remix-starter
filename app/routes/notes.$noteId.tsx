@@ -1,6 +1,6 @@
 import { Link, useLoaderData } from "@remix-run/react";
-import { NoteType } from "./notes";
-import { LoaderFunctionArgs } from "@remix-run/node";
+import { NoteType } from "./notes._index";
+import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { db } from "~/utils/db.server";
 
 export default function NotesDetailsPage() {
@@ -34,5 +34,14 @@ export async function loader({
       id: Number(noteId),
     },
   });
+
+  // error handling - hitting page that cannot exist
+  if (!note) {
+    throw json(
+      { message: `Could not find note for id ${noteId}` },
+      { status: 404 }
+    );
+  }
+
   return note;
 }

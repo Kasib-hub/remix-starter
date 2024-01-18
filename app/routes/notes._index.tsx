@@ -17,7 +17,6 @@ export async function loader(): Promise<NoteType[]> {
       { status: 404, statusText: "Not Found" }
     );
   }
-  await db.$disconnect;
   return allNotes;
 }
 
