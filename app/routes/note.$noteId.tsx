@@ -29,7 +29,7 @@ export async function loader({
   params,
 }: LoaderFunctionArgs): Promise<NoteType> {
   const noteId = params.noteId; // noteId refers to the name in filename
-  const note = await db.notes.findFirstOrThrow({
+  const note = await db.note.findFirstOrThrow({
     where: {
       id: Number(noteId),
     },

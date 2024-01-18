@@ -10,7 +10,7 @@ import { ReactElement } from "react";
 // remix will provide the data - console log shows in the terminal
 
 export async function loader(): Promise<NoteType[]> {
-  const allNotes = await db.notes.findMany(); // prisma is getting 'notes' from the model in schema file
+  const allNotes = await db.note.findMany(); // prisma is getting 'notes' from the model in schema file
   if (!allNotes || allNotes.length === 0) {
     throw json(
       { message: "Could not find any notes" },
@@ -37,7 +37,7 @@ export async function action({ request }: ActionFunctionArgs) {
     };
   }
 
-  const newNote = await db.notes.create({
+  const newNote = await db.note.create({
     data: noteData,
   });
   console.log(newNote);
