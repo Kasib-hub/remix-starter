@@ -21,7 +21,7 @@ function NoteList({ notes }: NewNoteProps): ReactElement {
         {notes.map((note: NoteType) => {
           return (
             <p key={note.id} className="note-item">
-              <Link to={`${note.id}`}>
+              <Link to={`${note.id}/`}>
                 <p>Note #{note.id}</p>
                 {note.title} - {note.content} written at{" "}
                 {new Date(note.date!).toLocaleDateString("en-US")}

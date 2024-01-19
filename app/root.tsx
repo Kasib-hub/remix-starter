@@ -10,7 +10,6 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import MainNavigation from "./components/MainNavigation";
-import { ErrorBoundaryComponent } from "@remix-run/react/dist/routeModules";
 
 export const links: LinksFunction = () => [
   ...[{ rel: "stylesheet", href: styles }],
