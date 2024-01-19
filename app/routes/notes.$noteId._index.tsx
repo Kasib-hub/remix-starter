@@ -24,6 +24,9 @@ export default function NotesDetailsPage() {
       </header>
       <h2>{note.title}</h2>
       <p>{note.content}</p>
+      <p className="cta">
+        <Link to={`edit`}>Edit Note</Link>
+      </p>
     </main>
   );
 }
