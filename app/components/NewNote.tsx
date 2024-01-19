@@ -18,7 +18,7 @@ function NewNote(): ReactElement {
   const isSubmitting = navigation.state === "submitting";
 
   //
-  const data: ActionData | undefined = useActionData(); // this is the result of validation.
+  const data: ActionData | undefined = useActionData(); // this is the result of validation in notes_index action function.
 
   return (
     <Form id="note-form" method="post">

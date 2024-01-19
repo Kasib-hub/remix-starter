@@ -1,6 +1,11 @@
-import { Link, useLoaderData } from "@remix-run/react";
+import {
+  Link,
+  isRouteErrorResponse,
+  useLoaderData,
+  useRouteError,
+} from "@remix-run/react";
 import { NoteType } from "./notes._index";
-import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { LoaderFunctionArgs } from "@remix-run/node";
 import { db } from "~/utils/db.server";
 
 export default function NotesDetailsPage() {
@@ -29,19 +34,42 @@ export async function loader({
   params,
 }: LoaderFunctionArgs): Promise<NoteType> {
   const noteId = params.noteId; // noteId refers to the name in filename
-  const note = await db.note.findFirstOrThrow({
+  const note = await db.note.findFirst({
     where: {
       id: Number(noteId),
     },
   });
 
   // error handling - hitting page that cannot exist
+
   if (!note) {
-    throw json(
-      { message: `Could not find note for id ${noteId}` },
-      { status: 404 }
-    );
+    throw new Response(`Could not find note for id ${noteId}`, { status: 404 });
   }
 
   return note;
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  console.log(error);
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div id="error-page">
+        <h1>Oops! {error.status} Error</h1>
+        <p>{error.data}</p>
+      </div>
+    );
+  } else if (error instanceof Error) {
+    return (
+      <div id="error-page">
+        <h1>Oops! Unexpected Error</h1>
+        <p>Something went wrong.</p>
+        <p>
+          <i>{error.message}</i>
+        </p>
+      </div>
+    );
+  } else {
+    return <></>;
+  }
 }
