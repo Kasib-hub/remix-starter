@@ -8,6 +8,15 @@ function MainNavigation() {
           <NavLink to="/">Home</NavLink>
         </li>
         <li className="nav-item">
+          <NavLink to="/expenses">Expenses</NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink to="/notes">My Notes</NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink to="/notes">My Notes</NavLink>
+        </li>
+        <li className="nav-item">
           <NavLink to="/notes">My Notes</NavLink>
         </li>
       </ul>

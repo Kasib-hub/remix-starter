@@ -29,9 +29,9 @@ body {
 }
 
 #main-navigation ul {
+  display: flex;
   justify-content: center;
   list-style: none;
-  display: flex;
   text-align: center;
 }
 
