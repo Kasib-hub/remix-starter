@@ -1,5 +1,5 @@
 // taking in the links exported form a component to use the css?
-import { json, useLoaderData } from "@remix-run/react";
+import { Outlet, json, useLoaderData } from "@remix-run/react";
 import NewNote, { links as newNoteLinks } from "../components/NewNote";
 import NoteList, { links as existingNoteLinks } from "~/components/NoteList";
 import { ActionFunctionArgs } from "@remix-run/node";
@@ -59,8 +59,12 @@ function NotesPage(): ReactElement {
   // many errors in console as a result.
   return (
     <main>
+      <h1>Auth Page</h1>
       <NewNote />
       <NoteList notes={notes} />
+      <body>
+        <Outlet />
+      </body>
     </main>
   );
 }
